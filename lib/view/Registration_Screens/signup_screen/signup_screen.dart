@@ -1,0 +1,154 @@
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:vallet_parking/controller/registration_controller.dart';
+import 'package:vallet_parking/utils/constants/assetsConstants.dart';
+import 'package:vallet_parking/utils/constants/color_constants.dart';
+import 'package:vallet_parking/utils/functions/validations.dart';
+import 'package:vallet_parking/utils/styles/String_styles.dart';
+import 'package:vallet_parking/widgets/global_widgets/textfeildWidget.dart';
+
+class SignupScreen extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final proRead = context.read<RegistrationController>();
+    final proWatch = context.watch<RegistrationController>();
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Sign Up',
+          style: StringStyles.headingStyle(),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Create an Account',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: ColorConstants.primaryColor,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Sign up to get started',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(height: 40),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextfeildWidget(
+                      controller: _nameController,
+                      label: 'Name',
+                      validation: (value) => Validations.validateName(value),
+                    ),
+                    const SizedBox(height: 16),
+                    TextfeildWidget(
+                      controller: _emailController,
+                      label: 'Email',
+                      validation: (value) => Validations.validateEmail(value),
+                    ),
+                    const SizedBox(height: 16),
+                    TextfeildWidget(
+                      controller: _passwordController,
+                      wantObscure: true,
+                      label: 'Password',
+                      validation: (value) =>
+                          Validations.validatePassword(value),
+                    ),
+                    const SizedBox(height: 16),
+                    TextfeildWidget(
+                      wantObscure: true,
+                      controller: _confirmPasswordController,
+                      label: 'Confirm Password',
+                      validation: (value) {
+                        if (value != _passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 24),
+                    proWatch.isRegLoading
+                        ? Center(
+                            child: Lottie.asset(
+                                height: 80, Animationconstants.splashAnimation))
+                        : GestureDetector(
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                proRead.createUser(
+                                    context: context,
+                                    email: _emailController.text,
+                                    password: _passwordController.text);
+                              }
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 200,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Signup',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                  color: ColorConstants.primaryColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                            )),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Already have an account? ',
+                      style: TextStyle(fontSize: 14)),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: ColorConstants.primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

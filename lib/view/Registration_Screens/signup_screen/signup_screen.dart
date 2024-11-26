@@ -6,6 +6,8 @@ import 'package:vallet_parking/utils/constants/assetsConstants.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/utils/functions/validations.dart';
 import 'package:vallet_parking/utils/styles/String_styles.dart';
+import 'package:vallet_parking/utils/styles/animation_styles.dart';
+import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
 import 'package:vallet_parking/widgets/global_widgets/textfeildWidget.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -91,36 +93,19 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     proWatch.isRegLoading
-                        ? Center(
-                            child: Lottie.asset(
-                                height: 80, Animationconstants.splashAnimation))
-                        : GestureDetector(
-                            onTap: () {
+                        ? AnimationStyles.loadingIndicator()
+                        : ButtonWidget
+                        
+                        (
+                          width: 200,
+                          label: 'Signup', onTap:  () {
                               if (_formKey.currentState!.validate()) {
                                 proRead.createUser(
                                     context: context,
                                     email: _emailController.text,
                                     password: _passwordController.text);
                               }
-                            },
-                            child: Container(
-                              height: 50,
-                              width: 200,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Signup',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                              decoration: BoxDecoration(
-                                  color: ColorConstants.primaryColor,
-                                  borderRadius: BorderRadius.circular(20)),
-                            )),
+                            },)
                   ],
                 ),
               ),

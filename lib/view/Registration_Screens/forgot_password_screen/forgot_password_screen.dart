@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:vallet_parking/controller/registration_controller.dart';
+import 'package:vallet_parking/utils/constants/assetsConstants.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/utils/functions/validations.dart';
+import 'package:vallet_parking/utils/styles/animation_styles.dart';
+import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
 import 'package:vallet_parking/widgets/global_widgets/textfeildWidget.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
@@ -9,6 +15,8 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final proWatch = context.watch<RegistrationController>();
+    final proRead = context.read<RegistrationController>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -50,29 +58,19 @@ class ForgotPasswordScreen extends StatelessWidget {
                       validation: (p0) => Validations.validateEmail(p0),
                     ),
                     const SizedBox(height: 24),
-                    GestureDetector(
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {}
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 200,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Login',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            color: ColorConstants.primaryColor,
-                            borderRadius: BorderRadius.circular(20)),
-                      ),
-                    )
+                    proWatch.isPasswordLoading
+                        ? AnimationStyles.loadingIndicator()
+                        : ButtonWidget(
+                          width: 200,
+                            label: 'Rest',
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                proRead.resetPassword(
+                                    email: _emailController.text,
+                                    context: context);
+                              }
+                            },
+                          )
                   ],
                 ),
               ),

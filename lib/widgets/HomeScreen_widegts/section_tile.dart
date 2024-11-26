@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/utils/styles/String_styles.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
+  final Function() onTap;
 
-  const SectionTitle({required this.title});
+  const SectionTitle({required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +16,14 @@ class SectionTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title, style: StringStyles.subHeadingStyle()),
-          Text(
-            "View All",
-            style: TextStyle(
-              color: Colors.orange,
-              fontSize: 14,
+          GestureDetector(
+            onTap: onTap,
+            child: Text(
+              "View All",
+              style: TextStyle(
+                color: ColorConstants.primaryColor,
+                fontSize: 14,
+              ),
             ),
           ),
         ],

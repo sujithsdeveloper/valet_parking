@@ -10,7 +10,27 @@ class HelpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstants.scaffoldBackgroundColor,
       appBar: AppBar(
-        leading: Text(label),
+        title: Text(label),
+        backgroundColor: Colors.white,
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            leading: Icon(
+              Icons.help,
+              color: ColorConstants.primaryColor,
+            ),
+            title: Text('Help'),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.connect_without_contact_rounded,
+              color: ColorConstants.primaryColor,
+            ),
+            title: Text('Contact us'),
+          ),
+        ],
       ),
     );
   }

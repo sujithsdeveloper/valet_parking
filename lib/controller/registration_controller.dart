@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vallet_parking/view/MainScreens/HomeScreen/home_screen.dart';
+import 'package:vallet_parking/widgets/global_widgets/customSnackbar.dart';
 
 class RegistrationController extends ChangeNotifier {
   bool isRegLoading = false;
   bool isLoginLoading = false;
+  bool isPasswordLoading = false;
 
   Future<void> createUser({
     required String email,
@@ -14,15 +16,15 @@ class RegistrationController extends ChangeNotifier {
     try {
       isRegLoading = true;
       notifyListeners();
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       if (credential != null) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration successful! Please login.')),
-        );
+            customSnackbar(title: 'Registration successful! Please login.'));
       }
       isRegLoading = false;
       notifyListeners();
@@ -31,19 +33,16 @@ class RegistrationController extends ChangeNotifier {
       notifyListeners();
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('The password provided is too weak.')),
-        );
+            customSnackbar(title: 'The password provided is too weak.'));
       } else if (e.code == 'email-already-in-use') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('The account already exists for that email.')),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(customSnackbar(
+            title: 'The account already exists for that email.'));
       }
     } catch (e) {
       isRegLoading = false;
       notifyListeners();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(customSnackbar(title: e.toString()));
     }
   }
 
@@ -74,13 +73,23 @@ class RegistrationController extends ChangeNotifier {
       notifyListeners();
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No user found for that email.')),
-        );
+            customSnackbar(title: 'No user found for that email.'));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Wrong password provided for that user.')),
-        );
+            customSnackbar(title: 'Wrong password provided for that user.'));
       }
     }
+  }
+
+  Future<void> resetPassword(
+      {required String email, required BuildContext context}) async {
+    isPasswordLoading = true;
+    notifyListeners();
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(title: 'Check your email to reset your password'));
+    isPasswordLoading = false;
+    notifyListeners();
   }
 }

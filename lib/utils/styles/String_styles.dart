@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vallet_parking/utils/constants/color_constants.dart';
 
 class StringStyles {
   static TextStyle subHeadingStyle() {
@@ -7,6 +8,7 @@ class StringStyles {
       fontSize: 18,
     );
   }
+
   static TextStyle headingStyle() {
     return TextStyle(
       fontWeight: FontWeight.bold,
@@ -16,5 +18,12 @@ class StringStyles {
 
   static TextStyle appbarTitleStyle() {
     return TextStyle(color: Colors.black, fontSize: 20);
+  }
+
+  static TextStyle priceStyle() {
+    return TextStyle(
+        color: ColorConstants.primaryColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 20);
   }
 }

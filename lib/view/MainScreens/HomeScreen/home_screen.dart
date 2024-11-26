@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
@@ -6,6 +5,9 @@ import 'package:vallet_parking/controller/homescreen_controller.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/utils/data/appDatas.dart';
 import 'package:vallet_parking/utils/styles/String_styles.dart';
+import 'package:vallet_parking/view/MainScreens/HomeScreen/homeScreen_items/bestparking_screen.dart';
+import 'package:vallet_parking/view/MainScreens/HomeScreen/homeScreen_items/nearby_parkingScree.dart';
+import 'package:vallet_parking/view/MainScreens/HomeScreen/otherScreens/navigationScreen.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/best_parking_container.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/bottomSheetWidget.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/filter_button.dart';
@@ -114,13 +116,23 @@ class homeScreen extends StatelessWidget {
                 (index) => FilterButton(
                   index: index,
                   label: AppDatas.homeFilterDatas[index],
-                  isSelected: proWatch.currentIndex == index ? true : false,
+                  isSelected:
+                      proWatch.filterCurrentIndex == index ? true : false,
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-          SectionTitle(title: "Best Parking"),
+          SectionTitle(
+            title: "Best Parking",
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BestparkingScreen(),
+                  ));
+            },
+          ),
           SizedBox(height: 8),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -129,14 +141,34 @@ class homeScreen extends StatelessWidget {
                 5,
                 (index) => BestParkingContainer(
                   onTap: () {
-                    parckingCardSheet(context);
+                    parckingCardSheet(
+                      context: context,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NavigationScreen(
+                           
+                              ),
+                            ));
+                      },
+                    );
                   },
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-          SectionTitle(title: "Nearby You"),
+          SectionTitle(
+            title: "Nearby You",
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NearbyParkingscreen(),
+                  ));
+            },
+          ),
           SizedBox(height: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,6 +189,4 @@ class homeScreen extends StatelessWidget {
       ),
     );
   }
-
- 
 }

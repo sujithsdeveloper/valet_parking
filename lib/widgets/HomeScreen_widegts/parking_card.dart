@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
+import 'package:vallet_parking/utils/styles/String_styles.dart';
 
 class ParkingCard extends StatelessWidget {
   final String name;
@@ -39,7 +40,7 @@ class ParkingCard extends StatelessWidget {
             Text(
               '$price',
               style:
-                  TextStyle(color: ColorConstants.primaryColor, fontSize: 20),
+                 StringStyles.priceStyle(),
             ),
           ],
         ),

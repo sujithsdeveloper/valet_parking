@@ -5,7 +5,6 @@ import 'package:vallet_parking/view/MainScreens/notification_screen/notification
 import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/booking_history_screen.dart';
 import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/edit_profileScreen.dart';
 import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/help_screen.dart';
-import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/logout_screen.dart';
 import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/payment_method_screen.dart';
 import 'package:vallet_parking/view/MainScreens/profile_screen/profile_screen.dart';
 import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/settings_screen.dart';
@@ -63,11 +62,6 @@ class AppDatas {
       'screen': HelpScreen(
         label: 'Help and Support',
       )
-    },
-    {
-      'label': 'LogOut',
-      'icon': Icon(Icons.logout, color: Colors.red),
-      'screen': LogoutScreen()
     },
   ];
 

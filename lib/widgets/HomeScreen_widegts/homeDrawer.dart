@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/booking_history_screen.dart';
+import 'package:vallet_parking/view/MainScreens/profile_screen/profileScreen_screens/settings_screen.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/logout_dialog.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -85,6 +86,11 @@ class HomeDrawer extends StatelessWidget {
             title: const Text('Settings'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(label: 'Settings'),
+                  ));
             },
           ),
           Divider(),

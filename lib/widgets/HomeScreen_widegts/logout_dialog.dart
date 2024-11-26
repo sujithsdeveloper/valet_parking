@@ -19,7 +19,10 @@ class LogoutDialog extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Cancel')),
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: Colors.black),
+            )),
         TextButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();

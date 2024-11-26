@@ -36,8 +36,9 @@ class FilterButton extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-              color: Colors.black,
-            ),
+                color: proWatch.filterCurrentIndex == index
+                    ? Colors.white
+                    : Colors.black),
           ),
         ),
       ),

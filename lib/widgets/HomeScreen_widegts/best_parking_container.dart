@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vallet_parking/utils/constants/color_constants.dart';
+import 'package:vallet_parking/utils/styles/String_styles.dart';
 
 class BestParkingContainer extends StatelessWidget {
   const BestParkingContainer({
@@ -8,13 +8,12 @@ class BestParkingContainer extends StatelessWidget {
   });
 
   final Function() onTap;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5),
+        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -53,8 +52,7 @@ class BestParkingContainer extends StatelessWidget {
               children: [
                 Text(
                   '\$4.6',
-                  style: TextStyle(
-                      color: ColorConstants.primaryColor, fontSize: 20),
+                  style: StringStyles.priceStyle(),
                 ),
                 Text('/Hour'),
               ],

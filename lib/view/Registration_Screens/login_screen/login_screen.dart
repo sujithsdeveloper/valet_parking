@@ -6,8 +6,10 @@ import 'package:vallet_parking/utils/constants/assetsConstants.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/utils/functions/validations.dart';
 import 'package:vallet_parking/utils/styles/String_styles.dart';
+import 'package:vallet_parking/utils/styles/animation_styles.dart';
 import 'package:vallet_parking/view/Registration_Screens/forgot_password_screen/forgot_password_screen.dart';
 import 'package:vallet_parking/view/Registration_Screens/signup_screen/signup_screen.dart';
+import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
 import 'package:vallet_parking/widgets/global_widgets/textfeildWidget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -73,10 +75,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     proWatch.isLoginLoading
-                        ? Center(
-                            child: Lottie.asset(
-                                height: 80, Animationconstants.splashAnimation))
-                        : GestureDetector(
+                        ? AnimationStyles.loadingIndicator()
+                        : ButtonWidget(
+                            width: 200,
+                            label: 'Login',
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 proRead.login(
@@ -86,22 +88,7 @@ class LoginScreen extends StatelessWidget {
                                 );
                               }
                             },
-                            child: Container(
-                              height: 50,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                color: ColorConstants.primaryColor,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
+                          )
                   ],
                 ),
               ),

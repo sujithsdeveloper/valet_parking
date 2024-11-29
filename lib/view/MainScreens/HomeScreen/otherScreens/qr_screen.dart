@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:vallet_parking/controller/qr_controller.dart';
-import 'package:vallet_parking/main.dart';
 import 'package:vallet_parking/utils/constants/assetsConstants.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
@@ -33,7 +32,7 @@ class QrScreen extends StatelessWidget {
             ButtonWidget(
                 label: 'Scan Now',
                 onTap: () {
-                  proRead.scanQR();
+                  // proRead.QRread();
                 },
                 width: 200)
           ],

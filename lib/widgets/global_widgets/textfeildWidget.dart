@@ -8,14 +8,14 @@ class TextfeildWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.label,
-    required this.validation,
+    this.validation,
     this.wantObscure = false,
     this.keyboardType = TextInputType.text,
   });
 
   final TextEditingController controller;
   final String label;
-  final String? Function(String?) validation;
+  final String? Function(String?)? validation;
   final bool wantObscure;
   final TextInputType keyboardType;
 

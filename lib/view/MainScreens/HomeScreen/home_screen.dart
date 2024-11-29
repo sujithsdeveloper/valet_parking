@@ -14,16 +14,28 @@ import 'package:vallet_parking/widgets/HomeScreen_widegts/filter_button.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/homeDrawer.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/parking_card.dart';
 import 'package:vallet_parking/widgets/HomeScreen_widegts/section_tile.dart';
+import 'package:vallet_parking/widgets/global_widgets/textfeildWidget.dart';
 
 class DiscoverScreen extends StatelessWidget {
   DiscoverScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final proWatch = context.watch<HomescreenController>();
     final proRead = context.read<HomescreenController>();
-    return Scaffold(
-      body: AppDatas.screenList[proWatch.currentIndex],
-      bottomNavigationBar: SlidingClippedNavBar(
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (proWatch.currentIndex != 0) {
+          proRead.onBottomNavTap(0);
+        } else {
+          Navigator.of(context).maybePop();
+        }
+      },
+      child: Scaffold(
+        body: AppDatas.screenList[proWatch.currentIndex],
+        bottomNavigationBar: SlidingClippedNavBar(
           barItems: [
             BarItem(title: 'Discover', icon: Icons.explore),
             BarItem(title: 'Search', icon: Icons.search),
@@ -34,7 +46,9 @@ class DiscoverScreen extends StatelessWidget {
           onButtonPressed: (index) {
             proRead.onBottomNavTap(index);
           },
-          activeColor: ColorConstants.primaryColor),
+          activeColor: ColorConstants.primaryColor,
+        ),
+      ),
     );
   }
 }
@@ -48,8 +62,9 @@ class homeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final proWatch = context.watch<HomescreenController>();
     final proRead = context.read<HomescreenController>();
+    final SearchController = TextEditingController();
     return Scaffold(
-      drawer: HomeDrawer(),
+      drawer: const HomeDrawer(),
       backgroundColor: ColorConstants.scaffoldBackgroundColor,
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -62,13 +77,13 @@ class homeScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 10),
             child: GestureDetector(
               onTap: () {
                 proRead.onProfileTap(3);
               },
               child: CircleAvatar(
-                backgroundImage: NetworkImage(
+                backgroundImage: const NetworkImage(
                     'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
                 backgroundColor: Colors.grey.shade300,
               ),
@@ -78,7 +93,7 @@ class homeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Padding(
@@ -86,28 +101,20 @@ class homeScreen extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: "Search...",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                    ),
-                  ),
-                ),
+                    child: TextfeildWidget(
+                  controller: SearchController,
+                  label: 'Search...',
+                )),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5),
-                  child: Icon(Icons.tune),
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  child: const Icon(Icons.tune),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
                 )
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -122,18 +129,18 @@ class homeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           SectionTitle(
             title: "Best Parking",
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BestparkingScreen(),
+                    builder: (context) => const BestparkingScreen(),
                   ));
             },
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -147,9 +154,7 @@ class homeScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => NavigationScreen(
-                           
-                              ),
+                              builder: (context) => const NavigationScreen(),
                             ));
                       },
                     );
@@ -158,24 +163,24 @@ class homeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           SectionTitle(
             title: "Nearby You",
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NearbyParkingscreen(),
+                    builder: (context) => const NearbyParkingscreen(),
                   ));
             },
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: List.generate(
               5,
-              (index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              (index) => const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: ParkingCard(
                   name: "Blue Way City Parking",
                   address: "428 RR Apache New York",

@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vallet_parking/utils/constants/assetsConstants.dart';
-import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/view/MainScreens/HomeScreen/home_screen.dart';
 import 'package:vallet_parking/view/Registration_Screens/login_screen/login_screen.dart';
 

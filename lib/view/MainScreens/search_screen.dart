@@ -49,18 +49,19 @@ class SearchScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: List.generate(
-              5,
-              (index) => BestParkingContainer(
-                onTap: () {
-                  
-                },
-              ),
-            )),
-          )
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //       children: List.generate(
+          //     5,
+          //     (index) => BestParkingContainer(
+
+          //       onTap: () {
+
+          //       },
+          //     ),
+          //   )),
+          // )
         ],
       ),
     );

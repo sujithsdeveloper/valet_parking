@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vallet_parking/utils/styles/String_styles.dart';
 import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
 
-Future<dynamic> parckingCardSheet({required BuildContext context,required Function() onTap}) {
+Future<dynamic> parckingCardSheet({required BuildContext context,required Function() onTap,required String image,required String name,required String location,required String slots,required String price,required String rating}) {
   return showModalBottomSheet(
     context: context,
     builder: (context) => Container(
@@ -25,7 +25,7 @@ Future<dynamic> parckingCardSheet({required BuildContext context,required Functi
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Big Town Parking',
+                      name,
                       style: StringStyles.subHeadingStyle(),
                     ),
                     Row(
@@ -35,15 +35,15 @@ Future<dynamic> parckingCardSheet({required BuildContext context,required Functi
                           color: Colors.grey,
                         ),
                         Text(
-                          '3718 W 25TH New York',
+                          location,
                           style: TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                       ],
                     ),
-                    Text('20 slots available'),
+                    Text('$slots slots available'),
                     AnimatedRatingStars(
                         starSize: 20,
-                        initialRating: 4,
+                        initialRating: double.parse(rating),
                         readOnly: true,
                         onChanged: (p0) {},
                         customFilledIcon: Icons.star,
@@ -52,7 +52,7 @@ Future<dynamic> parckingCardSheet({required BuildContext context,required Functi
                   ],
                 ),
                 Text(
-                  '\$20.5',
+                  '₹$price',
                   style: TextStyle(
                     color: Colors.green,
                     fontSize: 25,
@@ -77,7 +77,7 @@ Future<dynamic> parckingCardSheet({required BuildContext context,required Functi
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                              'https://images.pexels.com/photos/28468181/pexels-photo-28468181/free-photo-of-tesla-cybertruck-with-dog-and-crate-in-nature.jpeg?auto=compress&cs=tinysrgb&w=600')),
+                              image)),
                     ),
                   ),
                 ),

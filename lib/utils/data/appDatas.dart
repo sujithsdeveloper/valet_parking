@@ -20,7 +20,7 @@ class AppDatas {
   ];
 
   static List screenList = [
-    homeScreen(),
+    HomeScreen(),
     SearchScreen(),
     NotificationScreen(),
     ProfileScreen()

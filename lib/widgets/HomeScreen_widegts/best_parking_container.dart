@@ -4,9 +4,13 @@ import 'package:vallet_parking/utils/styles/String_styles.dart';
 class BestParkingContainer extends StatelessWidget {
   const BestParkingContainer({
     super.key,
-    required this.onTap,
+    required this.onTap, required this.name, required this.price, required this.url, required this.coordinate,
   });
+  final String name;
+  final String price;
+  final String url;
 
+  final String coordinate;
   final Function() onTap;
   @override
   Widget build(BuildContext context) {
@@ -31,11 +35,11 @@ class BestParkingContainer extends StatelessWidget {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                            'https://images.pexels.com/photos/457418/pexels-photo-457418.jpeg?auto=compress&cs=tinysrgb&w=600'))),
+                            url))),
               ),
             ),
             SizedBox(height: 20),
-            Text('Big Town Parking'),
+            Text(name),
             Row(
               children: [
                 Icon(
@@ -43,7 +47,7 @@ class BestParkingContainer extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 Text(
-                  '3718 W 25TH New York',
+                  coordinate,
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
               ],
@@ -51,7 +55,7 @@ class BestParkingContainer extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '\$4.6',
+                  '₹$price',
                   style: StringStyles.priceStyle(),
                 ),
                 Text('/Hour'),

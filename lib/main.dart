@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vallet_parking/controller/crudOperationController.dart';
 import 'package:vallet_parking/controller/editProfileController.dart';
 import 'package:vallet_parking/controller/homescreen_controller.dart';
-import 'package:vallet_parking/controller/qr_controller.dart';
+
 import 'package:vallet_parking/controller/registration_controller.dart';
 import 'package:vallet_parking/controller/widgetController.dart';
 import 'package:vallet_parking/firebase_options.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => RegistrationController()),
         ChangeNotifierProvider(create: (context) => Widgetcontroller()),
         ChangeNotifierProvider(create: (context) => Editprofilecontroller()),
-        ChangeNotifierProvider(create: (context) => QrController()),
+        ChangeNotifierProvider(create: (context) => Crudoperationcontroller()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

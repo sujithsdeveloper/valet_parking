@@ -163,9 +163,10 @@ class NavigationScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                     VerificationScreen(code:data['code'])
-                                ));
+                                    builder: (context) => VerificationScreen(
+                                          amountPerHour: data['price_per_hour'],
+                                          code: data['code'].toString(),
+                                        )));
                           },
                           width: 350,
                         ),

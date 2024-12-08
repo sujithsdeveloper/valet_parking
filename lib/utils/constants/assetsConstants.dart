@@ -4,6 +4,7 @@ class Animationconstants {
   static const String QRAnimation = 'assets/animations/QRScanner.json';
   static const String Success = 'assets/animations/succes.json';
   static const String failed = 'assets/animations/failed.json';
+  // static const String loading = 'assets/animations/loading.json';
 }
 
 class ImageConstants {

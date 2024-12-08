@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vallet_parking/view/MainScreens/HomeScreen/home_screen.dart';
+import 'package:vallet_parking/view/MainScreens/HomeScreen/otherScreens/timer_screen.dart';
 import 'package:vallet_parking/widgets/global_widgets/customSnackbar.dart';
 
 class RegistrationController extends ChangeNotifier {
@@ -10,6 +14,7 @@ class RegistrationController extends ChangeNotifier {
 
   Future<void> createUser({
     required String email,
+    required String name,
     required String password,
     required BuildContext context,
   }) async {
@@ -25,6 +30,11 @@ class RegistrationController extends ChangeNotifier {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
             customSnackbar(title: 'Registration successful! Please login.'));
+
+        final ref = FirebaseFirestore.instance
+            .collection('user')
+            .doc(credential.user!.uid);
+        await ref.set({'name': name, 'email': email, 'isParked': false});
       }
       isRegLoading = false;
       notifyListeners();
@@ -54,18 +64,47 @@ class RegistrationController extends ChangeNotifier {
     try {
       isLoginLoading = true;
       notifyListeners();
+
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
       if (credential != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DiscoverScreen(),
-          ),
-        );
+        final userRef = FirebaseFirestore.instance
+            .collection('user')
+            .doc(FirebaseAuth.instance.currentUser!.uid);
+
+        final userSnapshot = await userRef.get();
+
+        if (userSnapshot.exists) {
+          final isParked = userSnapshot.data()?['isParked'] as bool;
+
+          if (isParked) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TimerScreen(
+
+
+                ),
+              ),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DiscoverScreen(),
+              ),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            customSnackbar(title: 'User data not found.'),
+          );
+        }
       }
+
       isLoginLoading = false;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
@@ -73,11 +112,19 @@ class RegistrationController extends ChangeNotifier {
       notifyListeners();
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
-            customSnackbar(title: 'No user found for that email.'));
+          customSnackbar(title: 'No user found for that email.'),
+        );
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(
-            customSnackbar(title: 'Wrong password provided for that user.'));
+          customSnackbar(title: 'Wrong password provided for that user.'),
+        );
       }
+    } catch (e) {
+      isLoginLoading = false;
+      notifyListeners();
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackbar(title: 'An unexpected error occurred.'),
+      );
     }
   }
 

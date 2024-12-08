@@ -1,25 +1,24 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code_field/flutter_verification_code_field.dart';
-import 'package:provider/provider.dart';
-import 'package:vallet_parking/controller/qr_controller.dart';
 import 'package:vallet_parking/utils/constants/color_constants.dart';
 import 'package:vallet_parking/view/MainScreens/HomeScreen/otherScreens/statusScreen.dart';
 import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
 
 class VerificationScreen extends StatelessWidget {
-  const VerificationScreen({super.key, required this.code});
-
-  final int code;
+  const VerificationScreen({
+    super.key,
+   
+   required this.code, required this.amountPerHour,
+  });
+  final String code;
+  final String amountPerHour;
 
   @override
   Widget build(BuildContext context) {
-    final proWatch = context.watch<QrController>();
-    final proRead = context.read<QrController>();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scan QR'),
+        title: Text('Code'),
         centerTitle: true,
         backgroundColor: ColorConstants.scaffoldBackgroundColor,
       ),
@@ -46,20 +45,27 @@ class VerificationScreen extends StatelessWidget {
               length: 5,
               onFilled: (value) {
                 try {
-                  int enteredCode = int.parse(value);
 
-                  if (enteredCode == code) {
+                  if (value == code) {
                     log('Success: Code matched');
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Statusscreen(),
+                          builder: (context) => Statusscreen(
+                            amountPerHour: amountPerHour
+,
+isSucces: true,
+
+                         
+                          ),
                         ));
                   } else {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Statusscreen(
+                            amountPerHour: amountPerHour,
+                           
                             isSucces: false,
                           ),
                         ));

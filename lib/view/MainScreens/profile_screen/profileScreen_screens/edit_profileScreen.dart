@@ -13,8 +13,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
-    final _emailController = TextEditingController();
-    final _phoneController = TextEditingController();
+
     final proWatch = context.watch<Editprofilecontroller>();
     final formkey = GlobalKey<FormState>();
     return Scaffold(
@@ -89,41 +88,20 @@ class EditProfileScreen extends StatelessWidget {
                 validation: (p0) => Validations.validateName(p0),
               ),
               SizedBox(height: 16),
-              Text(
-                "Email",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 8),
-              TextfeildWidget(
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
-                  label: 'Enter your email',
-                  validation: (p0) => Validations.validateEmail(p0)),
-              SizedBox(height: 16),
-              Text(
-                "Phone Number",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              TextfeildWidget(
-                  keyboardType: TextInputType.number,
-                  controller: _phoneController,
-                  label: 'Enter your Phone Number',
-                  validation: (p0) => Validations.validatePhoneNumber(p0)),
-              SizedBox(height: 8),
-              SizedBox(height: 16),
               Center(
-                  child: ButtonWidget(
-                    width: 200,
-                      label: 'Save changes',
-                      onTap: () {
-                        if (formkey.currentState!.validate()) {}
-                      })),
+                  child: proWatch.isNameUpdating
+                      ? CircularProgressIndicator(
+                          color: ColorConstants.primaryColor,
+                        )
+                      : ButtonWidget(
+                          width: 200,
+                          label: 'Save changes',
+                          onTap: () {
+                            if (formkey.currentState!.validate()) {
+                              context.read<Editprofilecontroller>().upDateName(
+                                  name: _nameController.text, context: context);
+                            }
+                          })),
             ],
           ),
         ),

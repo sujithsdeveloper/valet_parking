@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 
-class HomescreenController extends ChangeNotifier {
+import 'package:stacked/stacked.dart';
+
+class HomescreenController extends BaseViewModel {
   int currentIndex = 0;
   void onBottomNavTap(int value) {
     currentIndex = value;

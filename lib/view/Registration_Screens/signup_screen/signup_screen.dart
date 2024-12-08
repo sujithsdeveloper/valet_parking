@@ -94,18 +94,19 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(height: 24),
                     proWatch.isRegLoading
                         ? AnimationStyles.loadingIndicator()
-                        : ButtonWidget
-                        
-                        (
-                          width: 200,
-                          label: 'Signup', onTap:  () {
+                        : ButtonWidget(
+                            width: 200,
+                            label: 'Signup',
+                            onTap: () {
                               if (_formKey.currentState!.validate()) {
                                 proRead.createUser(
+                                    name: _nameController.text,
                                     context: context,
                                     email: _emailController.text,
                                     password: _passwordController.text);
                               }
-                            },)
+                            },
+                          )
                   ],
                 ),
               ),

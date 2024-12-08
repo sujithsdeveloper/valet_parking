@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:vallet_parking/utils/styles/String_styles.dart';
 import 'package:vallet_parking/widgets/global_widgets/buttonWidget.dart';
 
-Future<dynamic> parckingCardSheet({required BuildContext context,required Function() onTap,required String image,required String name,required String location,required String slots,required String price,required String rating}) {
+Future<dynamic> parckingCardSheet(
+    {required BuildContext context,
+    required Function() onTap,
+    required String image,
+    required String name,
+    required String location,
+    required String slots,
+    required String price,
+    required String rating}) {
   return showModalBottomSheet(
     context: context,
     builder: (context) => Container(
@@ -75,9 +83,7 @@ Future<dynamic> parckingCardSheet({required BuildContext context,required Functi
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              image)),
+                          fit: BoxFit.cover, image: NetworkImage(image)),
                     ),
                   ),
                 ),
